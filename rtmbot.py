@@ -60,7 +60,7 @@ class RtmBot(object):
                     if limiter == True:
                         time.sleep(.1)
                         limiter = False
-                    message = output[1].encode('ascii','ignore')
+                    message = output[1].encode('utf-8', 'ignore').decode('utf-8')
                     channel.send_message("{}".format(message))
                     limiter = True
     def crons(self):
@@ -185,14 +185,14 @@ if __name__ == "__main__":
                                 directory
                                 ))
 
-    config = yaml.load(file(args.config or 'rtmbot.conf', 'r'))
+    config = yaml.load(open(args.config or 'rtmbot.conf', 'r'))
     debug = config["DEBUG"]
     bot = RtmBot(config["SLACK_TOKEN"])
     site_plugins = []
     files_currently_downloading = []
     job_hash = {}
 
-    if config.has_key("DAEMON"):
+    if "DAEMON" in config:
         if config["DAEMON"]:
             import daemon
             with daemon.DaemonContext():
