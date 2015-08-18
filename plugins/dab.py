@@ -73,10 +73,10 @@ def debug():
         studio = has_elements('studio')
         tekrom = has_elements('teknikerrom')
         if studio:
-            if elements['current'] or elements['prevous']:
+            if elements['current'] or elements['previous']:
                 warnings.append('Ligger elementer i både autoavvikler og i studio.')
         if tekrom:
-            if elements['current'] or elements['prevous']:
+            if elements['current'] or elements['previous']:
                 warnings.append('Ligger elementer i både autoavvikler og i teknikerrom.')
 
         if not tekrom and not studio:
