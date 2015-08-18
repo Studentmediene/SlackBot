@@ -17,7 +17,7 @@ def get_elements(studio):
     elements = loads(elements_url)
 
     if elements['current']:
-        current_class = elements['current']['class']
+        current_class = elements['current']['class'].lower()
 
         if current_class == 'music':
             return 'Låt: {0} - {1}'.format(elements['current']['title'], elements['current']['artist'])
