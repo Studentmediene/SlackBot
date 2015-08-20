@@ -1,7 +1,7 @@
 #! python3
 from urllib.request import urlopen, quote
 
-outputs[]
+outputs = []
 channels = ["C08R9TE2F"] # radioteknisk
 
 api = "http://m.atb.no/xmlhttprequest.php?service=routeplannerOracle.getOracleAnswer&question="
