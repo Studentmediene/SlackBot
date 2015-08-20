@@ -12,7 +12,3 @@ def process_message(data):
 			if len(info) < 1:
 				return
 			outputs.append([data["channel"], urlopen(api + quote(info)).read().decode()])
-
-process_message({"channel": "C08R9TE2F", "text": ".bus gløs moholt"})
-
-print(outputs)
