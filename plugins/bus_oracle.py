@@ -12,4 +12,4 @@ def process_message(data):
 			info = data["text"][5:]
 			if len(info) < 1:
 				return
-			outputs.append(urlopen(api + quote(info)).read().decode())
+			outputs.append([data["channel"], urlopen(api + quote(info)).read().decode()])
