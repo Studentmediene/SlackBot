@@ -22,4 +22,4 @@ def process_message(data):
 				fact = fact.replace(a, replace[a])
 			for a in remove:
 				fact = fact.replace(a, "")
-			outputs.append(fact)
+			outputs.append([data["channel"], fact])
