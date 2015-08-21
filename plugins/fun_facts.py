@@ -13,7 +13,7 @@ remove = ["<strong>", "</strong>", "<em>", "</em>"]
 
 def process_message(data):
 	if data["channel"] in channels:
-		if data["text"] == ".fun" or data["text"] == ".fact":
+		if data["text"] in [".fun", ".funfact", ".fact"]:
 			info = "[]"
 			while info == "[]":
 				info = urlopen(url + str(random.randint(bottom, top))).read().decode()
