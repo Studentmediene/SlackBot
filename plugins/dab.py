@@ -2,8 +2,6 @@ from urllib.request import urlopen
 from json import loads
 
 outputs = []
-channels = ['C08R9TE2F']  # radioteknisk
-
 
 def get_elements(studio):
     valid_studio_values = ['studio', 'teknikerrom']
@@ -126,17 +124,16 @@ def get_show():
 
 
 def process_message(data):
-    if data['channel'] in channels:
-        if data['text'] == '.dab':
-            for warning in debug():
-                outputs.append([data['channel'], warning])
-            if scheduled_replay():
-                outputs.append([data['channel'], get_show()])
-            else:
-                outputs.append([data['channel'], get_show()])
-                studio = get_elements('studio')
-                tekrom = get_elements('teknikerrom')
-                if studio:
-                    outputs.append([data['channel'], studio + ' i studio 1.'])
-                if tekrom:
-                    outputs.append([data['channel'], tekrom + ' i teknikerrom.'])
+    if data['text'] == '.dab':
+        for warning in debug():
+            outputs.append([data['channel'], warning])
+        if scheduled_replay():
+            outputs.append([data['channel'], get_show()])
+        else:
+            outputs.append([data['channel'], get_show()])
+            studio = get_elements('studio')
+            tekrom = get_elements('teknikerrom')
+            if studio:
+                outputs.append([data['channel'], studio + ' i studio 1.'])
+            if tekrom:
+                outputs.append([data['channel'], tekrom + ' i teknikerrom.'])
