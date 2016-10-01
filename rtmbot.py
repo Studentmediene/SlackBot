@@ -11,6 +11,7 @@ import sys
 import time
 import logging
 from argparse import ArgumentParser
+import datetime
 
 from slackclient import SlackClient
 
@@ -155,16 +156,28 @@ class UnknownChannel(Exception):
 
 
 def main_loop():
+    global last_exception_datetime
     if "LOGFILE" in config:
         level = config["LOGLEVEL"] if "LOGLEVEL" in config else logging.INFO
         logging.basicConfig(filename=config["LOGFILE"], level=level, format='%(asctime)s %(message)s')
     logging.info(directory)
-    try:
-        bot.start()
-    except KeyboardInterrupt:
-        sys.exit(0)
-    except:
-        logging.exception('OOPS')
+    while True:
+        try:
+            bot.start()
+        except Exception:
+            # Log the exception, then reconnect.
+            # Note that KeyboardInterrupt and SIGTERM won't be caught here.
+            logging.exception('OOPS')
+            new_exception_datetime = datetime.datetime.now(datetime.timezone.utc)
+            # Are the exceptions occurring very fast? If so, we should probably
+            # exit
+            if (new_exception_datetime - last_exception_datetime) < \
+                    datetime.timedelta(seconds=10):
+                logging.error("Exceptions are occurring with less than "
+                              "10 seconds inbetween. Halting execution...")
+                raise
+            else:
+                last_exception_datetime = new_exception_datetime
 
 
 def parse_args():
@@ -192,6 +205,9 @@ if __name__ == "__main__":
     site_plugins = []
     files_currently_downloading = []
     job_hash = {}
+    # The last exception has not occurred, so say January 1st 1970
+    last_exception_datetime = datetime.datetime.fromtimestamp(0,
+        datetime.timezone.utc)
 
     if "DAEMON" in config:
         if config["DAEMON"]:
