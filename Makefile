@@ -1,2 +1,2 @@
 run:
-	. venv/bin/activate && rtmbot -c slackbot.conf
+	. venv/bin/activate && rtmbot -c rtmbot.conf
