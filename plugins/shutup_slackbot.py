@@ -1,5 +1,7 @@
-outputs = []
+from rtmbot.core import Plugin
 
-def process_message(data):
-	if data["text"] in ["Bpye Berg Nyberg"]:
-		outputs.append([data["channel"], "Hold kjeft, slackbot..."])
+
+class ShutupSlackbot(Plugin):
+    def process_message(self, data):
+        if data["text"] in ["Bpye Berg Nyberg"]:
+            self.outputs.append([data["channel"], "Hold kjeft, slackbot..."])

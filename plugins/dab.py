@@ -1,7 +1,8 @@
 from urllib.request import urlopen
 from json import loads
 
-outputs = []
+from rtmbot.core import Plugin
+
 
 def get_elements(studio):
     valid_studio_values = ['studio', 'teknikerrom']
@@ -123,17 +124,18 @@ def get_show():
     return 'Nå: {0} ({1} - {2}), Neste: {3}'.format(show_now, show_start, show_end, show_next)
 
 
-def process_message(data):
-    if data['text'] == '.dab':
-        for warning in debug():
-            outputs.append([data['channel'], warning])
-        if scheduled_replay():
-            outputs.append([data['channel'], get_show()])
-        else:
-            outputs.append([data['channel'], get_show()])
-            studio = get_elements('studio')
-            tekrom = get_elements('teknikerrom')
-            if studio:
-                outputs.append([data['channel'], studio + ' i studio 1.'])
-            if tekrom:
-                outputs.append([data['channel'], tekrom + ' i teknikerrom.'])
+class DabPlugin(Plugin):
+    def process_message(self, data):
+        if data['text'] == '.dab':
+            for warning in debug():
+                self.outputs.append([data['channel'], warning])
+            if scheduled_replay():
+                self.outputs.append([data['channel'], get_show()])
+            else:
+                self.outputs.append([data['channel'], get_show()])
+                studio = get_elements('studio')
+                tekrom = get_elements('teknikerrom')
+                if studio:
+                    self.outputs.append([data['channel'], studio + ' i studio 1.'])
+                if tekrom:
+                    self.outputs.append([data['channel'], tekrom + ' i teknikerrom.'])
