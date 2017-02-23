@@ -5,7 +5,11 @@ SLACK_TOKEN: "xoxb-123456789abcdefghijklmnopqrstuvwxyz"
 # Comment out to print to stdout instead
 LOGFILE: "/opt/SlackBot/log/log.log"
 
-# See https://docs.python.org/3/library/logging.html#logging-levels for table
-# of values you can use
-LOGLEVEL: 30
+# These are the plugins that are active
+ACTIVE_PLUGINS:
+    - plugins.chuck_facts.ChuckFactsPlugin
+    - plugins.dab.DabPlugin
+    - plugins.fun_facts.FunFactsPlugin
+    - plugins.shutup_slackbot.ShutupSlackbotPlugin
+    - plugins.no_user_search.NoUserSearchPlugin
 

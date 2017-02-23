@@ -2,3 +2,4 @@ requests
 python-daemon
 pyyaml
 websocket-client
+rtmbot
