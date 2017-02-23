@@ -11,4 +11,5 @@ ACTIVE_PLUGINS:
     - plugins.dab.DabPlugin
     - plugins.fun_facts.FunFactsPlugin
     - plugins.shutup_slackbot.ShutupSlackbotPlugin
+    - plugins.no_user_search.NoUserSearchPlugin
 
